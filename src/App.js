@@ -1,24 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import Header from "./Header";
+import Nav from "./Nav";
+import Results from "./Results";
+import requests from "./requests";
+import { useStateValue } from "./StateProvider";
+import { auth } from "./firebase";
 
-function App() {
+function App() {    
+  const [{}, dispatch] = useStateValue();  
+  const [selectedOption, setSelectedOption] = useState(requests.fetchTrending); 
+  useEffect(() => {
+    
+    auth.onAuthStateChanged((authUser) => {
+      console.log("THE USER IS >>> ", authUser);
+
+      if (authUser) {
+ 
+
+        dispatch({
+          type: "SET_USER",
+          user: authUser,
+        });
+      } else {
+
+        dispatch({
+          type: "SET_USER",
+          user: null,
+        });
+      }
+    });
+  }, []);
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">    
+        <div className="app__Body">
+          <Header setSelectedOption={setSelectedOption} />
+          <Nav setSelectedOption={setSelectedOption} />
+          <Results selectedOption={selectedOption} />        
+        </div>
     </div>
   );
 }
