@@ -4,12 +4,13 @@ import Header from "./Header";
 import Nav from "./Nav";
 import Results from "./Results";
 import requests from "./requests";
-import { useStateValue } from "./StateProvider";
 import { auth } from "./firebase";
+import { useStateValue } from "./StateProvider";
 
-function App() {    
+function App() {  
+  
   const [{}, dispatch] = useStateValue();  
-  const [selectedOption, setSelectedOption] = useState(requests.fetchTrending); 
+ 
   useEffect(() => {
     
     auth.onAuthStateChanged((authUser) => {
@@ -31,7 +32,7 @@ function App() {
       }
     });
   }, []);
-  
+  const [selectedOption, setSelectedOption] = useState(requests.fetchTrending); 
   return (
     <div className="app">    
         <div className="app__Body">
