@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import "./SignUp.css";
 import { Button } from "@material-ui/core";
-import { auth, provider } from "./firebase";
-import { actionTypes } from "./reducer";
-import { useStateValue } from "./state";
+import { auth } from "./firebase";
 import { Link, useHistory } from "react-router-dom";
 import logo from "./images/LogoAiderTv.png";
 
 function SignUp() {
-  const [{}, dispatch] = useStateValue();
+ 
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

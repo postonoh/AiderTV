@@ -9,8 +9,9 @@ import { useStateValue } from "./StateProvider";
 
 function App() {  
   
-  const [{}, dispatch] = useStateValue();  
+  const [{}, dispatch] = useStateValue(); 
  
+  const [selectedOption, setSelectedOption] = useState(requests.fetchTrending); 
   useEffect(() => {
     
     auth.onAuthStateChanged((authUser) => {
@@ -32,7 +33,6 @@ function App() {
       }
     });
   }, []);
-  const [selectedOption, setSelectedOption] = useState(requests.fetchTrending); 
   return (
     <div className="app">    
         <div className="app__Body">
